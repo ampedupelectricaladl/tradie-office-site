@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 96" width="420" height="96" role="img" aria-label="Tradie Office">
+  <title>Tradie Office</title>
+  <!-- Mark: a navy square (the office) with an orange bolt cut through it (the trade). -->
+  <rect x="0" y="8" width="80" height="80" rx="14" fill="#0B1F3A"/>
+  <path d="M46 20 L26 54 H38 L34 76 L56 42 H43 Z" fill="#FF6B1A"/>
+  <!-- Wordmark: system-stack text, heavy weight, tight tracking. -->
+  <text x="100" y="47" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="34" font-weight="700" letter-spacing="-0.5" fill="#0B1F3A">Tradie</text>
+  <text x="100" y="82" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="34" font-weight="700" letter-spacing="-0.5" fill="#FF6B1A">Office</text>
+</svg>
