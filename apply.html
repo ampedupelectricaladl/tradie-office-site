@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Apply — Tradie Office</title>
-<meta name="description" content="Apply for one of the ten founding customer spots. Eight questions, about five minutes. We reply either way.">
+<meta name="description" content="Apply for one of the ten founding customer spots — quote packs, quote chasing and one approval email a day, installed in 14 days. Eight questions, about five minutes. We reply either way.">
 <link rel="canonical" href="https://ampedupelectricaladl.github.io/tradie-office-site/apply.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tradie Office">
 <meta property="og:title" content="Apply — Tradie Office">
-<meta property="og:description" content="Ten founding spots. Eight questions. We reply either way.">
+<meta property="og:description" content="Quote packs, quote chasing, one approval email a day. Ten founding spots. Eight questions.">
 <meta property="og:url" content="https://ampedupelectricaladl.github.io/tradie-office-site/apply.html">
 <meta property="og:image" content="https://ampedupelectricaladl.github.io/tradie-office-site/assets/logo.svg">
 <meta property="og:locale" content="en_AU">
@@ -17,6 +17,7 @@
 <meta name="theme-color" content="#0B1F3A">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/site.css">
+<script src="assets/config.js"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -39,7 +40,7 @@
   <section class="hero">
     <div class="wrap">
       <h1>Apply for one of the ten.</h1>
-      <p class="promise">Eight questions. About five minutes. We read every one and we reply either way, even if it's a no.</p>
+      <p class="promise">Quote packs, quote chasing and one approval email a day, installed in 14 days. Eight questions, about five minutes. We read every one and we reply either way, even if it's a no.</p>
     </div>
   </section>
 
@@ -52,8 +53,7 @@
 
           <p id="apply-status" class="form-status" role="status" hidden></p>
 
-          <form class="form" id="apply-form" data-endpoint="https://REPLACE-ME/apply"
-                method="post" action="https://REPLACE-ME/apply" novalidate>
+          <form class="form" id="apply-form" method="post" novalidate>
 
             <div class="field">
               <label for="business">Business name</label>
@@ -117,10 +117,17 @@
 
             <p class="form-note">We use what you send here to answer you about Tradie Office. Nothing else. See the <a href="privacy.html">privacy page</a>.</p>
             <noscript>
-              <p class="form-note"><strong>JavaScript is off.</strong> No problem — email the answers to
-              <a href="mailto:hello@tradieoffice.com.au">hello@tradieoffice.com.au</a> instead.</p>
+              <p class="form-note"><strong>JavaScript is off.</strong> Turn it on and this form will give you a block of text you can copy and send us.</p>
             </noscript>
           </form>
+
+          <div id="apply-copy" hidden>
+            <p id="apply-copy-note"></p>
+            <div class="field">
+              <label for="apply-copy-text">Your answers — copy this whole block</label>
+              <textarea id="apply-copy-text" rows="12" readonly></textarea>
+            </div>
+          </div>
         </div>
 
         <div>
@@ -143,8 +150,6 @@
             <h3>The founding price</h3>
             <p>$3,000 setup and $800 a month, AUD inc GST, locked for as long as you stay. First ten businesses only.</p>
           </div>
-
-          <p class="small">Rather just email? <a href="mailto:hello@tradieoffice.com.au">hello@tradieoffice.com.au</a></p>
         </div>
       </div>
 
@@ -165,11 +170,12 @@
       <li><a href="terms.html">Terms</a></li>
     </ul>
     <p>Tradie Office is built and installed by Amped Up Electrical Adelaide. Adelaide, South Australia.</p>
-    <p>Questions: <a href="mailto:hello@tradieoffice.com.au">hello@tradieoffice.com.au</a></p>
+    <p data-contact-line hidden></p>
     <p class="small">All prices in AUD and include GST.</p>
   </div>
 </footer>
 
+<script src="assets/site.js"></script>
 <script src="assets/apply.js"></script>
 </body>
 </html>

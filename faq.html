@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FAQ — Tradie Office</title>
-<meta name="description" content="Twelve straight answers: does it send without me, does it quote prices, what if I don't use ServiceM8, who owns my data, can I cancel, does it sound like a robot.">
+<meta name="description" content="Straight answers: how the quote chasing works, why this isn't an AI receptionist, does it send without me, does it quote prices, what about the Spam Act, who owns my data, can I cancel.">
 <link rel="canonical" href="https://ampedupelectricaladl.github.io/tradie-office-site/faq.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tradie Office">
 <meta property="og:title" content="FAQ — Tradie Office">
-<meta property="og:description" content="Twelve straight answers, including the awkward ones.">
+<meta property="og:description" content="How the quote chasing works, why it isn't an AI receptionist, and the other awkward ones.">
 <meta property="og:url" content="https://ampedupelectricaladl.github.io/tradie-office-site/faq.html">
 <meta property="og:image" content="https://ampedupelectricaladl.github.io/tradie-office-site/assets/logo.svg">
 <meta property="og:locale" content="en_AU">
@@ -17,6 +17,7 @@
 <meta name="theme-color" content="#0B1F3A">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/site.css">
+<script src="assets/config.js"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -47,6 +48,20 @@
     <div class="wrap faq">
 
       <details open>
+        <summary>How does the quote chasing actually work?</summary>
+        <p>You price the job in ServiceM8. The pack goes out — the quote PDF, a spec sheet per product, photos of work like theirs — and a text says it landed.</p>
+        <p>Then it chases. Day 3 and day 8 by default, across text and email, and four touches on the bigger jobs. Before every single chase it reads both channels, so someone who already replied, already booked or already said no is never chased. Every chase waits in your approval email first.</p>
+        <p>Each chase message names your business and carries a working opt-out, because under the Spam Act a follow-up text is a commercial message and you are the sender. If someone opts out they are suppressed everywhere, straight away.</p>
+      </details>
+
+      <details>
+        <summary>Isn't this just an AI receptionist?</summary>
+        <p>No, and we'd rather say so than let you find out later.</p>
+        <p>An AI receptionist answers the phone. That is now a cheap add-on on software you may already pay for, and it is not worth three grand on its own.</p>
+        <p>What it does not do is open your job, build the quote pack, chase that quote on a cadence across two channels, write the booking into your diary, and hand you one email a day to approve the lot. That whole loop is what you are buying here.</p>
+      </details>
+
+      <details>
         <summary>Does it send messages without me?</summary>
         <p>No. Not on day one, and not unless you choose it.</p>
         <p>Out of the box every message waits in an approval queue. You get one email a day listing every item with the exact words, and a Telegram nudge so you know it's there. Nothing goes out until you tap approve.</p>
@@ -147,9 +162,10 @@
       <li><a href="terms.html">Terms</a></li>
     </ul>
     <p>Tradie Office is built and installed by Amped Up Electrical Adelaide. Adelaide, South Australia.</p>
-    <p>Questions: <a href="mailto:hello@tradieoffice.com.au">hello@tradieoffice.com.au</a></p>
+    <p data-contact-line hidden></p>
     <p class="small">All prices in AUD and include GST.</p>
   </div>
 </footer>
+<script src="assets/site.js"></script>
 </body>
 </html>

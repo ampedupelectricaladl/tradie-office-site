@@ -120,7 +120,8 @@ for (const file of htmlFiles()) {
 
 // Non-HTML files that must exist for the site to be complete.
 for (const required of ['assets/site.css', 'assets/logo.svg', 'assets/mark.svg',
-                        'assets/apply.js', 'robots.txt', 'sitemap.xml', '404.html']) {
+                        'assets/apply.js', 'assets/config.js', 'assets/site.js',
+                        'robots.txt', 'sitemap.xml', '404.html']) {
   if (!fs.existsSync(path.join(SITE, required))) problems.push(`missing required file: ${required}`);
 }
 

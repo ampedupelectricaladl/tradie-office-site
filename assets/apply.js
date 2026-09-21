@@ -3,23 +3,27 @@
  * No libraries, no network calls except the POST to the configured endpoint.
  *
  * Behaviour:
- *   1. Read the endpoint from the form's data-endpoint attribute.
- *   2. If the endpoint is missing, empty, or still the REPLACE-ME placeholder,
- *      go straight to the mailto fallback. No pointless failed request.
+ *   1. Read the endpoint from window.TO_CONFIG.applyEndpoint (assets/config.js).
+ *   2. If it is empty, go straight to the copy-block fallback. No pointless
+ *      failed request, and no mailto: to an address we do not own.
  *   3. Otherwise POST the fields as JSON. On any failure (network, non-2xx,
- *      timeout) fall back to mailto as well, so an application is never lost.
- *   4. The form also has a plain action= so that with JS off the browser does
- *      something sensible; the <noscript> block gives the email address.
+ *      timeout) show the same copy block, so an application is never lost.
+ *   4. The fallback shows every answer as one selectable block of text with
+ *      instructions to send it to us on Instagram. The handle is only named if
+ *      TO_CONFIG.instagram is set — we never print a contact detail we have
+ *      not been given.
  */
 (function () {
   'use strict';
 
-  var MAILTO = 'hello@tradieoffice.com.au';
-  var PLACEHOLDER = 'REPLACE-ME';
   var TIMEOUT_MS = 12000;
 
+  var cfg = window.TO_CONFIG || {};
   var form = document.getElementById('apply-form');
   var statusEl = document.getElementById('apply-status');
+  var copyBox = document.getElementById('apply-copy');
+  var copyNote = document.getElementById('apply-copy-note');
+  var copyText = document.getElementById('apply-copy-text');
   if (!form) return;
 
   var LABELS = {
@@ -51,29 +55,31 @@
   }
 
   function endpoint() {
-    var url = (form.getAttribute('data-endpoint') || '').trim();
-    if (!url) return null;
-    if (url.indexOf(PLACEHOLDER) !== -1) return null;
-    return url;
+    return (cfg.applyEndpoint || '').trim() || null;
   }
 
-  function mailtoFallback(data, why) {
-    var lines = [];
+  /** Show the answers as one copyable block instead of sending them anywhere. */
+  function copyFallback(data, why) {
+    var lines = ['Tradie Office application', ''];
     for (var i = 0; i < ORDER.length; i++) {
-      var k = ORDER[i];
-      lines.push(LABELS[k] + ': ' + data[k]);
+      lines.push(LABELS[ORDER[i]] + ': ' + data[ORDER[i]]);
     }
-    lines.push('');
-    lines.push('Sent from the Tradie Office application form.');
 
-    var href = 'mailto:' + MAILTO +
-      '?subject=' + encodeURIComponent('Tradie Office application - ' + (data.business || data.name || 'new')) +
-      '&body=' + encodeURIComponent(lines.join('\n'));
+    var handle = (cfg.instagram || '').trim();
+    var note = 'Applications open shortly — copy this and send it to us on Instagram';
+    note += handle ? ' (' + handle + ').' : '.';
+    if (why) note += ' (' + why + ')';
 
-    say('Opening your email app with the answers filled in. Just press send. ' +
-        'If nothing opens, email them to ' + MAILTO + '.' + (why ? ' (' + why + ')' : ''), 'err');
+    if (copyText) copyText.value = lines.join('\n');
+    if (copyNote) copyNote.textContent = note;
+    if (copyBox) copyBox.hidden = false;
 
-    window.location.href = href;
+    say(note, 'err');
+
+    if (copyText && copyText.focus) {
+      copyText.focus();
+      if (copyText.select) copyText.select();
+    }
   }
 
   /** Returns the index of the first empty required field, or -1. */
@@ -97,7 +103,7 @@
     }
 
     var url = endpoint();
-    if (!url) { mailtoFallback(data, 'form endpoint not set up yet'); return; }
+    if (!url) { copyFallback(data, null); return; }
 
     var button = form.querySelector('button[type="submit"]');
     if (button) { button.disabled = true; button.textContent = 'Sending...'; }
@@ -108,7 +114,7 @@
       if (done) return;
       done = true;
       if (button) { button.disabled = false; button.textContent = 'Send my application'; }
-      mailtoFallback(data, 'the form took too long');
+      copyFallback(data, 'the form took too long');
     }, TIMEOUT_MS);
 
     function fail(why) {
@@ -116,7 +122,7 @@
       done = true;
       clearTimeout(timer);
       if (button) { button.disabled = false; button.textContent = 'Send my application'; }
-      mailtoFallback(data, why);
+      copyFallback(data, why);
     }
 
     try {

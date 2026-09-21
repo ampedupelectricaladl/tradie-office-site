@@ -62,13 +62,23 @@ change the source instead.
 - **No analytics, no external fonts, no third-party scripts.** The only
   JavaScript is `assets/apply.js`, served from the same origin.
 
-## The apply form endpoint
+## Contact details and the apply form endpoint
 
-`apply.html` carries `data-endpoint="https://REPLACE-ME/apply"`. While that
-placeholder is in place, `assets/apply.js` skips the network entirely and opens
-a `mailto:` to `hello@tradieoffice.com.au` with every field in the body. The
-same fallback fires if a real endpoint is set but times out or errors, so an
-application is never silently lost.
+Everything configurable lives in **`assets/config.js`**, and nothing else in the
+site hard-codes an email address, an endpoint or a social handle:
 
-To point it at the real endpoint, change that one attribute in `apply.html`
-(both `data-endpoint` and the `action` attribute) and redeploy.
+```js
+window.TO_CONFIG = { applyEndpoint: "", contactEmail: "", instagram: "", tiktok: "" };
+```
+
+- **`contactEmail`** empty → the footer contact line is not rendered on any
+  page. Do **not** put an `@tradieoffice.com.au` address here: that domain is
+  registered to someone else (`docs/RESEARCH.md` §3), so mail to it does not
+  reach us.
+- **`applyEndpoint`** empty → `assets/apply.js` skips the network entirely and
+  shows every answer as one copyable block with *"Applications open shortly —
+  copy this and send it to us on Instagram"*. The handle is named only if
+  `instagram` is set. The same fallback fires if a real endpoint is set but
+  times out or errors, so an application is never silently lost.
+
+To go live on any of them, edit that one file and redeploy. No HTML changes.
